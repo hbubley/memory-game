@@ -1,8 +1,26 @@
 export const CARD_IMAGES = [
-    {src: 'images/blue.png'},
-    {src: 'images/green.png'},
-    {src: 'images/orange.png'},
-    {src: 'images/pink.png'},
-    {src: 'images/purple.png'},
-    {src: 'images/yellow.png'},
+    {
+        src: 'images/blue.png',
+        matched: false
+    },
+    {
+        src: 'images/green.png',
+        matched: false
+    },
+    {
+        src: 'images/orange.png',
+        matched: false
+    },
+    {
+        src: 'images/pink.png',
+        matched: false
+    },
+    {
+        src: 'images/purple.png',
+        matched: false
+    },
+    {
+        src: 'images/yellow.png',
+        matched: false
+    },
 ]
