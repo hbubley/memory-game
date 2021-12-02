@@ -1,23 +1,32 @@
-import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
+import { CARD_IMAGES } from './utils/constants';
 
 function App() {
+  const [cards, setCards] = useState([]);
+  const [turns, setTurns] = useState(0);
+
+  const shuffleCards = () => {
+    const shuffledCards = [...CARD_IMAGES, ...CARD_IMAGES].sort(() => { return Math.random() - 0.5 }).map((card) => ({
+      ...card, id: Math.random()
+    }));
+    setCards(shuffledCards);
+    setTurns(0)
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Match Game</h1>
+      <button onClick={shuffleCards}>Begin Match</button>
+
+      <div className='card-grid'>
+        {cards.map(card => (
+          <div className="card">
+            <img className="front" src={card.src} alt={"card front"} />
+            <img className="back" src={'/images/back.png'} alt={"card back"} />
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
