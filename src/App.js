@@ -6,8 +6,9 @@ import { CARD_IMAGES } from './utils/constants';
 function App() {
   const [cards, setCards] = useState([]);
   const [turns, setTurns] = useState(0);
-  const [choiceOne, setChoiceOne] = useState()
-  const [choiceTwo, setChoiceTwo] = useState()
+  const [choiceOne, setChoiceOne] = useState();
+  const [choiceTwo, setChoiceTwo] = useState();
+  const [disabled, setDisabled] = useState(false);
 
   const shuffleCards = () => {
     const shuffledCards = [...CARD_IMAGES, ...CARD_IMAGES].sort(() => { return Math.random() - 0.5 }).map((card) => ({
@@ -30,10 +31,12 @@ function App() {
     setTurns(prevTurns => prevTurns + 1);
     setChoiceOne(null);
     setChoiceTwo(null);
+    setDisabled(false)
   }
 
   useEffect(() => {
     if (choiceOne && choiceTwo) {
+      setDisabled(true)
       if (choiceOne.src === choiceTwo.src) {
         setCards(prevCards => {
           return prevCards.map(card => {
@@ -49,27 +52,27 @@ function App() {
         setTimeout(() =>
           resetTurn(), 1000
         )
-}
+      }
     }
   }, [choiceOne, choiceTwo])
-return (
-  <div className="App">
-    <h1>Match Game</h1>
-    <button onClick={shuffleCards}>Begin Match</button>
+  return (
+    <div className="App">
+      <h1>Match Game</h1>
+      <button onClick={shuffleCards}>Begin Match</button>
 
-    <div className='card-grid'>
-      {cards.map(card => (
-        <Card
-          key={card.id}
-          card={card}
-          handleChoiceChange={handleChoiceChange}
-          flipped={card === choiceOne || card === choiceTwo || card.matched}
-          disabled={choiceOne && choiceTwo}
-        />
-      ))}
+      <div className='card-grid'>
+        {cards.map(card => (
+          <Card
+            key={card.id}
+            card={card}
+            handleChoiceChange={handleChoiceChange}
+            flipped={card === choiceOne || card === choiceTwo || card.matched}
+            disabled={disabled}
+          />
+        ))}
+      </div>
     </div>
-  </div>
-);
+  );
 }
 
 export default App;
