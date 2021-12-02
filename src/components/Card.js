@@ -1,12 +1,12 @@
 import React from 'react'
 import './Card.css'
-const Card = ({ card, handleChoiceChange, choiceOne, choiceTwo }) => {
+const Card = ({ card, handleChoiceChange, flipped }) => {
     return (
         <div className="card">
-            {card.id === choiceOne?.id || card.id === choiceTwo?.id || card.matched
-                ? <img className="front" src={card.src} alt={"card front"} />
-                : <img className="back" onClick={() => handleChoiceChange(card)} src={'/images/back.png'} alt={"card back"} />
-            }
+            <div className={flipped ? "flipped" : ""}>
+                <img className="front" src={card.src} alt={"card front"} />
+                <img className="back" onClick={() => handleChoiceChange(card)} src={'/images/back.png'} alt={"card back"} />
+            </div>
         </div>
     )
 }

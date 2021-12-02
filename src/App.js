@@ -46,29 +46,30 @@ function App() {
         })
         resetTurn();
       } else {
-        console.log("NO MATCH!");
-        resetTurn();
-      }
+        setTimeout(() =>
+          resetTurn(), 1000
+        )
+}
     }
   }, [choiceOne, choiceTwo])
-  return (
-    <div className="App">
-      <h1>Match Game</h1>
-      <button onClick={shuffleCards}>Begin Match</button>
+return (
+  <div className="App">
+    <h1>Match Game</h1>
+    <button onClick={shuffleCards}>Begin Match</button>
 
-      <div className='card-grid'>
-        {cards.map(card => (
-          <Card
-            choiceOne={choiceOne}
-            choiceTwo={choiceTwo}
-            key={card.id}
-            card={card}
-            handleChoiceChange={handleChoiceChange}
-          />
-        ))}
-      </div>
+    <div className='card-grid'>
+      {cards.map(card => (
+        <Card
+          key={card.id}
+          card={card}
+          handleChoiceChange={handleChoiceChange}
+          flipped={card === choiceOne || card === choiceTwo || card.matched}
+          disabled={choiceOne && choiceTwo}
+        />
+      ))}
     </div>
-  );
+  </div>
+);
 }
 
 export default App;
